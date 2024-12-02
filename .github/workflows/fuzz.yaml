@@ -21,11 +21,5 @@ jobs:
         with:
           python-version: '3.11'  # Specify the Python version you need
 
-      # Remove this step if there are no dependencies
-      # - name: Install dependencies
-      #   run: |
-      #     python -m pip install --upgrade pip
-      #     pip install -r requirements.txt  # Ensure you have a requirements.txt file
-
       - name: Run fuzz.py
         run: python fuzz.py
