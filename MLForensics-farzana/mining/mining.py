@@ -9,6 +9,17 @@ import shutil
 from git import Repo
 from git import exc 
 
+#Importing logging for forensics
+import logging
+
+
+def initializeLogger():
+    format_str = '%(asctime)s - %(levelname)s - %(message)s'
+    file_name = 'mining.log'
+    logging.basicConfig(format=format_str, filename=file_name, level=logging.INFO)
+    return logging.getLogger('forensics-logger')
+  
+logger = initializeLogger()
 
 def giveTimeStamp():
   tsObj = time.time()
@@ -21,8 +32,12 @@ def deleteRepo(dirName, type_):
     try:
         if os.path.exists(dirName):
             shutil.rmtree(dirName)
+            #Logs a succesful deletion
+            logger.info(f"Deleted directory: {dirName}")
     except OSError:
-        print('Failed deleting, will try manually')  
+        print('Failed deleting, will try manually')
+        #Logs an error in deletion
+        logger.info("Delete failed")
         
         
 def dumpContentIntoFile(strP, fileP):
@@ -61,7 +76,10 @@ def checkPythonFile(path2dir):
                         for item_ in patternDict:
                             if(item_ in content_):
                                 usageCount = usageCount + 1
-                                print('item_->->->',  content_)                    
+                                print('item_->->->',  content_)  
+
+    #Logs usage count
+    logger.info(f"Pattern usage count in {path2dir}: {usageCount}")
     return usageCount  
     
 
@@ -191,6 +209,13 @@ def cloneRepos(repo_list, dev_threshold=3, python_threshold=0.10, commit_thresho
    
 
 if __name__=='__main__':
+
+    #Creates logger
+    logObj  = myLogger.giveMeLoggingObject()
+
+    #Logs correct initialization
+    logObj.info("mining.py started")
+  
     repos_df = pd.read_csv('PARTIAL_REMAINING_GITHUB.csv', sep='delimiter')
     print(repos_df.head())
     list_    = repos_df['url'].tolist()
