@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Run Bandit to check for security issues
+bandit -r . -f csv -o bandit_report.csv
+
+# Check if Bandit found any issues
+if grep -q "Issue" bandit_report.csv; then
+    echo "Bandit found security issues. Commit aborted."
+    exit 1
+else
+    echo "No security issues found. Proceeding with commit."
+fi
