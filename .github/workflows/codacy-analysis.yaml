@@ -1,4 +1,6 @@
 name: Codacy Security Scan
+permissions:
+  actions: read
 
 on:
   push:
