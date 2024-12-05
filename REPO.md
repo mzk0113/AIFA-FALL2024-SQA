@@ -18,4 +18,11 @@ All the activities and lessons learned
   - Documentation and Reporting: Keeping detailed reports of security analyses and fuzz testing results is essential for tracking progress and addressing issues. It also aids in compliance and auditing processes.
   - 
 - 4.c:
-- 4.d:
+  
+4.d. Integrate continuous integration with GitHub Actions. 
+
+- Activities:
+  - Continuous Integration: Utilized GitHub Actions and Codacy to integrate Continuous Integration that will update us and perform security and functionality tests every time a push is performed so that we can detect errors and security flaws. 
+
+- Lesson learned: 
+  - CI/CD Automation: Integrating the ability to automatically check your code when you push it, which allows you to quickly know if your code is safe and operating as intended. It also helps when you are collaborating with others for a project, as you don’t have to manually check after every single update to the repository 
