@@ -7,7 +7,16 @@ import numpy as np
 import os 
 import pandas as pd 
 import time 
-import datetime 
+import datetime
+
+#Import logging for forensics
+import logging
+
+def initializeLogger():
+    format_str = '%(asctime)s - %(levelname)s - %(message)s'
+    file_name = 'mining.log'
+    logging.basicConfig(format=format_str, filename=file_name, level=logging.INFO)
+    return logging.getLogger('forensics-logger')
 
 def giveTimeStamp():
   tsObj = time.time()
@@ -16,13 +25,20 @@ def giveTimeStamp():
 
 
 def getAllSLOC(df_param, csv_encoding='latin-1' ):
+    #Logs start of getAllSLOC
+    logObj.info("Starting SLOC calculation")
     total_sloc = 0
     all_files = np.unique( df_param['FILE_FULL_PATH'].tolist() ) 
     for file_ in all_files:
         total_sloc = total_sloc + sum(1 for line in open(file_, encoding=csv_encoding))
+
+    #Logs completion of getAllSLOC and result
+    logObj.info(f"Total SLOC: {total_sloc}")
     return total_sloc
 
 def reportProportion( res_file, output_file ):
+    #Logs start of reportProportion and input 
+    logObj.info(f"Starting reportProportion with res_file: {res_file}, output_file: {output_file}")
     res_df = pd.read_csv( res_file )
     repo_names   = np.unique( res_df['REPO_FULL_PATH'].tolist() )
     
@@ -34,6 +50,8 @@ def reportProportion( res_file, output_file ):
     for repo in repo_names:
         print('-'*50) 
         print(repo)
+        #Logs current repo processing
+        logObj.info(f"Processing repo: {repo}")
         repo_entity = res_df[res_df['REPO_FULL_PATH'] == repo ]           
         all_py_files   = np.unique( repo_entity['FILE_FULL_PATH'].tolist() )
         for field in fields2explore:
@@ -49,6 +67,9 @@ def reportProportion( res_file, output_file ):
     CSV_HEADER = ['REPO_NAME', 'TOTAL_FILES', 'CATEGORY', 'ATLEASTONE', 'PROP_VAL']
     full_df = pd.DataFrame( df_list ) 
     full_df.to_csv(output_file, header= CSV_HEADER, index=False, encoding= 'utf-8') 
+
+    #Logs completion
+    logObj.info(f"Proportion report saved to {output_file}")
 
 
 def reportEventDensity(res_file, output_file): 
@@ -83,6 +104,13 @@ def reportEventDensity(res_file, output_file):
     full_df.to_csv(output_file, header= CSV_HEADER, index=False, encoding= 'utf-8') 
 
 if __name__=='__main__': 
+
+    #Creates logger
+    logObj  = myLogger.giveMeLoggingObject()
+
+    #Logs correct initialization
+    logObj.info("frequency.py started")
+  
     print('*'*100 )
     t1 = time.time()
     print('Started at:', giveTimeStamp() )
