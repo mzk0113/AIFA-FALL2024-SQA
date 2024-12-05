@@ -1,0 +1,603 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+
+PS C:\Users\snube> bandit --version
+bandit : The term 'bandit' is not recognized as the name of a cmdlet, function, script file, or operable program. Check the spelling of the name, or if a
+path was included, verify that the path is correct and try again.
+At line:1 char:1
++ bandit --version
++ ~~~~~~
+    + CategoryInfo          : ObjectNotFound: (bandit:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+
+PS C:\Users\snube> .\bandit
+.\bandit : The term '.\bandit' is not recognized as the name of a cmdlet, function, script file, or operable program. Check the spelling of the name, or
+if a path was included, verify that the path is correct and try again.
+At line:1 char:1
++ .\bandit
++ ~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (.\bandit:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+
+PS C:\Users\snube> pip install bandit
+Collecting bandit
+  Downloading bandit-1.8.0-py3-none-any.whl.metadata (6.8 kB)
+Collecting PyYAML>=5.3.1 (from bandit)
+  Downloading PyYAML-6.0.2-cp311-cp311-win_amd64.whl.metadata (2.1 kB)
+Collecting stevedore>=1.20.0 (from bandit)
+  Downloading stevedore-5.4.0-py3-none-any.whl.metadata (2.3 kB)
+Collecting rich (from bandit)
+  Downloading rich-13.9.4-py3-none-any.whl.metadata (18 kB)
+Collecting colorama>=0.3.9 (from bandit)
+  Downloading colorama-0.4.6-py2.py3-none-any.whl.metadata (17 kB)
+Collecting pbr>=2.0.0 (from stevedore>=1.20.0->bandit)
+  Downloading pbr-6.1.0-py2.py3-none-any.whl.metadata (3.4 kB)
+Collecting markdown-it-py>=2.2.0 (from rich->bandit)
+  Downloading markdown_it_py-3.0.0-py3-none-any.whl.metadata (6.9 kB)
+Collecting pygments<3.0.0,>=2.13.0 (from rich->bandit)
+  Downloading pygments-2.18.0-py3-none-any.whl.metadata (2.5 kB)
+Collecting mdurl~=0.1 (from markdown-it-py>=2.2.0->rich->bandit)
+  Downloading mdurl-0.1.2-py3-none-any.whl.metadata (1.6 kB)
+Downloading bandit-1.8.0-py3-none-any.whl (127 kB)
+Downloading colorama-0.4.6-py2.py3-none-any.whl (25 kB)
+Downloading PyYAML-6.0.2-cp311-cp311-win_amd64.whl (161 kB)
+Downloading stevedore-5.4.0-py3-none-any.whl (49 kB)
+Downloading rich-13.9.4-py3-none-any.whl (242 kB)
+Downloading markdown_it_py-3.0.0-py3-none-any.whl (87 kB)
+Downloading pbr-6.1.0-py2.py3-none-any.whl (108 kB)
+Downloading pygments-2.18.0-py3-none-any.whl (1.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 10.1 MB/s eta 0:00:00
+Downloading mdurl-0.1.2-py3-none-any.whl (10.0 kB)
+Installing collected packages: PyYAML, pygments, pbr, mdurl, colorama, stevedore, markdown-it-py, rich, bandit
+Successfully installed PyYAML-6.0.2 bandit-1.8.0 colorama-0.4.6 markdown-it-py-3.0.0 mdurl-0.1.2 pbr-6.1.0 pygments-2.18.0 rich-13.9.4 stevedore-5.4.0
+PS C:\Users\snube> bandit --version
+bandit 1.8.0
+  python version = 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+PS C:\Users\snube> cd OneDrive
+PS C:\Users\snube\OneDrive> cd Desktop
+PS C:\Users\snube\OneDrive\Desktop> ls
+
+
+    Directory: C:\Users\snube\OneDrive\Desktop
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+da---l        10/30/2024   1:45 PM                Auburn University
+-a----        11/19/2024   8:39 AM           1367 CapCut.lnk
+-a----        11/28/2024   8:13 PM           2253 Discord.lnk
+-a----        10/30/2024   1:56 PM            222 MapleStory.url
+-a----         11/1/2024   4:49 PM           1410 Visual Studio Code.lnk
+
+
+PS C:\Users\snube\OneDrive\Desktop> cd "Auburn University"
+PS C:\Users\snube\OneDrive\Desktop\Auburn University> ls
+
+
+    Directory: C:\Users\snube\OneDrive\Desktop\Auburn University
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-r---        10/30/2024   1:41 PM                Fall 2020
+d-r---        10/30/2024   1:42 PM                Fall 2022
+d-----        10/30/2024   1:44 PM                Fall 2024
+d-----        10/30/2024   1:44 PM                My Life
+da----        10/30/2024   1:50 PM                Spring 2021
+-a----         1/24/2023   4:41 PM          29114 2021 1098.pdf
+-a----         1/27/2023   6:37 PM          33063 2022 1098.pdf
+-a----         1/26/2024   6:46 PM          33405 2023 1098.pdf
+-a----          8/7/2024   8:33 AM         322306 23.jpg
+-a----         1/26/2024  12:05 PM        2063865 IMG_2327.HEIC
+-a----         1/26/2024  12:06 PM        1525489 IMG_2327.jpg
+-a----         5/28/2024  10:53 AM        2214597 IMG_2655.HEIC
+-a----         3/11/2022  10:05 AM        2366840 RegAck-0312145238.pdf
+-a----          2/3/2021   6:07 PM          44838 Resume.pdf
+-a----          5/7/2021   8:24 PM         195461 SoloLearn Machine Learning Notes.docx
+-a----          6/2/2024   9:14 AM          24114 Suicide Note.docx
+
+
+PS C:\Users\snube\OneDrive\Desktop\Auburn University> cd "Fall 2024"
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024> ls
+
+
+    Directory: C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        10/30/2024   1:43 PM                COMP 4710 Senior Design Project
+d-----        11/11/2024   2:01 PM                COMP 4730 Computer Ethics
+d-----        10/30/2024   1:43 PM                COMP 4810 Program Assessment
+d-----        10/30/2024   1:43 PM                COMP 5120 Database Systems I
+d-----        10/30/2024   1:43 PM                COMP 5130 Data Mining
+d-----        11/29/2024  12:53 PM                COMP 5710 Software Quality Assurance
+d-----          5/4/2024   9:41 PM                UNIV 4AA0 Achieve the Creed
+
+
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024> cd "COMP 5710 Software Quality Assurance"
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance> ls
+
+
+    Directory: C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        11/19/2024   4:49 PM                PRoject
+d-----         12/2/2024  11:14 AM                Workshops
+-a----         8/26/2024  10:13 AM        3137553 AUG19-INTRO.pptx
+-a----         8/26/2024  10:13 AM         287956 AUG21-CMMI.pdf
+-a----         8/26/2024  10:13 AM         727124 AUG22-SQA.pdf
+-a----         8/26/2024  10:13 AM         237722 AUG22-SQA.pptx
+-a----         8/26/2024  10:13 AM         269771 AUG26-WATERFALL-OTHERS.pptx
+-a----         8/26/2024  10:13 AM         420029 AUG26-WATERFALL.pdf
+-a----         8/26/2024  10:13 AM         712110 AUG28-SCRUM.pdf
+-a----         8/26/2024  10:13 AM         293125 AUG30-REQUIREMENTS.pptx
+-a----        11/29/2024  12:58 PM           4274 Project.txt
+
+
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance> cd PRoject
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject> ls
+
+
+    Directory: C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        11/29/2024  12:56 PM                MLForensics-farzana
+
+
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject> git init
+Reinitialized existing Git repository in C:/Users/snube/OneDrive/Desktop/Auburn University/Fall 2024/COMP 5710 Software Quality Assurance/PRoject/.git/
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject> git add .
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject> git commit -m "Initial Commit"
+On branch master
+Your branch is up to date with 'origin/master'.
+
+nothing to commit, working tree clean
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject> git remote add origin
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                                                             https://github.com/mzk0113/AIFA-FALL2024-SQA
+https://github.com/mzk0113/AIFA-FALL2024-SQA : The term 'https://github.com/mzk0113/AIFA-FALL2024-SQA' is not recognized as the name of a cmdlet,
+function, script file, or operable program. Check the spelling of the name, or if a path was included, verify that the path is correct and try again.
+At line:1 char:1
++ https://github.com/mzk0113/AIFA-FALL2024-SQA
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (https://github....FA-FALL2024-SQA:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject> git remot add origin https://github.com/mzk0113/AIFA-FALL2024-SQA
+git: 'remot' is not a git command. See 'git --help'.
+
+The most similar command is
+        remote
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject> git remote add origin https://github.com/mzk0113/AIFA-FALL2024-SQA
+error: remote origin already exists.
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject> git push -u origin master
+branch 'master' set up to track 'origin/master'.
+Everything up-to-date
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject> cd .git
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git> ls
+
+
+    Directory: C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        11/19/2024   4:49 PM                hooks
+d-----        11/19/2024   4:49 PM                info
+d-----        11/19/2024   4:52 PM                logs
+d-----        11/19/2024   4:52 PM                objects
+d-----        11/19/2024   4:53 PM                refs
+-a----         12/2/2024  12:18 PM             15 COMMIT_EDITMSG
+-a----         12/2/2024  12:19 PM            342 config
+-a----        11/19/2024   4:49 PM             73 description
+-a----        11/19/2024   4:49 PM             23 HEAD
+-a----        11/19/2024   4:52 PM           2096 index
+
+
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git> cd hooks
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git\hooks> ls
+
+
+    Directory: C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git\hooks
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        11/19/2024   4:49 PM            478 applypatch-msg.sample
+-a----        11/19/2024   4:49 PM            896 commit-msg.sample
+-a----        11/19/2024   4:49 PM           4726 fsmonitor-watchman.sample
+-a----        11/19/2024   4:49 PM            189 post-update.sample
+-a----        11/19/2024   4:49 PM            424 pre-applypatch.sample
+-a----        11/19/2024   4:49 PM           1649 pre-commit.sample
+-a----        11/19/2024   4:49 PM            416 pre-merge-commit.sample
+-a----        11/19/2024   4:49 PM           1374 pre-push.sample
+-a----        11/19/2024   4:49 PM           4898 pre-rebase.sample
+-a----        11/19/2024   4:49 PM            544 pre-receive.sample
+-a----        11/19/2024   4:49 PM           1492 prepare-commit-msg.sample
+-a----        11/19/2024   4:49 PM           2783 push-to-checkout.sample
+-a----        11/19/2024   4:49 PM           2308 sendemail-validate.sample
+-a----        11/19/2024   4:49 PM           3650 update.sample
+
+
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git\hooks> touch pre-commit
+touch : The term 'touch' is not recognized as the name of a cmdlet, function, script file, or operable program. Check the spelling of the name, or if a
+path was included, verify that the path is correct and try again.
+At line:1 char:1
++ touch pre-commit
++ ~~~~~
+    + CategoryInfo          : ObjectNotFound: (touch:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git\hooks> > pre-commit
+> : The term '>' is not recognized as the name of a cmdlet, function, script file, or operable program. Check the spelling of the name, or if a path was
+included, verify that the path is correct and try again.
+At line:1 char:1
++ > pre-commit
++ ~
+    + CategoryInfo          : ObjectNotFound: (>:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git\hooks> New-Item -Path . -Name "pre-commit" -ItemType "File"
+
+
+    Directory: C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git\hooks
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----         12/2/2024  12:21 PM              0 pre-commit
+
+
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git\hooks> ls
+
+
+    Directory: C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git\hooks
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        11/19/2024   4:49 PM            478 applypatch-msg.sample
+-a----        11/19/2024   4:49 PM            896 commit-msg.sample
+-a----        11/19/2024   4:49 PM           4726 fsmonitor-watchman.sample
+-a----        11/19/2024   4:49 PM            189 post-update.sample
+-a----        11/19/2024   4:49 PM            424 pre-applypatch.sample
+-a----         12/2/2024  12:21 PM              0 pre-commit
+-a----        11/19/2024   4:49 PM           1649 pre-commit.sample
+-a----        11/19/2024   4:49 PM            416 pre-merge-commit.sample
+-a----        11/19/2024   4:49 PM           1374 pre-push.sample
+-a----        11/19/2024   4:49 PM           4898 pre-rebase.sample
+-a----        11/19/2024   4:49 PM            544 pre-receive.sample
+-a----        11/19/2024   4:49 PM           1492 prepare-commit-msg.sample
+-a----        11/19/2024   4:49 PM           2783 push-to-checkout.sample
+-a----        11/19/2024   4:49 PM           2308 sendemail-validate.sample
+-a----        11/19/2024   4:49 PM           3650 update.sample
+
+
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git\hooks> chmod +x pre-commit
+chmod : The term 'chmod' is not recognized as the name of a cmdlet, function, script file, or operable program. Check the spelling of the name, or if a
+path was included, verify that the path is correct and try again.
+At line:1 char:1
++ chmod +x pre-commit
++ ~~~~~
+    + CategoryInfo          : ObjectNotFound: (chmod:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git\hooks> icacls "pre-commit"
+pre-commit NT AUTHORITY\SYSTEM:(I)(F)
+           BUILTIN\Administrators:(I)(F)
+           SNUBEREDDIE\snube:(I)(F)
+
+Successfully processed 1 files; Failed processing 0 files
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git\hooks> nano pre-commit
+nano : The term 'nano' is not recognized as the name of a cmdlet, function, script file, or operable program. Check the spelling of the name, or if a path
+was included, verify that the path is correct and try again.
+At line:1 char:1
++ nano pre-commit
++ ~~~~
+    + CategoryInfo          : ObjectNotFound: (nano:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git\hooks> code pre-commit
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git\hooks> ls
+
+
+    Directory: C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git\hooks
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        11/19/2024   4:49 PM            478 applypatch-msg.sample
+-a----        11/19/2024   4:49 PM            896 commit-msg.sample
+-a----        11/19/2024   4:49 PM           4726 fsmonitor-watchman.sample
+-a----        11/19/2024   4:49 PM            189 post-update.sample
+-a----        11/19/2024   4:49 PM            424 pre-applypatch.sample
+-a----         12/2/2024  12:23 PM            321 pre-commit
+-a----        11/19/2024   4:49 PM           1649 pre-commit.sample
+-a----        11/19/2024   4:49 PM            416 pre-merge-commit.sample
+-a----        11/19/2024   4:49 PM           1374 pre-push.sample
+-a----        11/19/2024   4:49 PM           4898 pre-rebase.sample
+-a----        11/19/2024   4:49 PM            544 pre-receive.sample
+-a----        11/19/2024   4:49 PM           1492 prepare-commit-msg.sample
+-a----        11/19/2024   4:49 PM           2783 push-to-checkout.sample
+-a----        11/19/2024   4:49 PM           2308 sendemail-validate.sample
+-a----        11/19/2024   4:49 PM           3650 update.sample
+
+
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git\hooks> code pre-commit.sample
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git\hooks> git add pre-commit.sample
+fatal: this operation must be run in a work tree
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git\hooks> git commit -m "Test pre-commit hook"
+
+fatal: this operation must be run in a work tree
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git\hooks> git add .
+fatal: this operation must be run in a work tree
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git\hooks> git status
+fatal: this operation must be run in a work tree
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git\hooks> cd ..
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git> git status
+fatal: this operation must be run in a work tree
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git> ls
+
+
+    Directory: C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----         12/2/2024  12:21 PM                hooks
+d-----        11/19/2024   4:49 PM                info
+d-----        11/19/2024   4:52 PM                logs
+d-----        11/19/2024   4:52 PM                objects
+d-----        11/19/2024   4:53 PM                refs
+-a----         12/2/2024  12:18 PM             15 COMMIT_EDITMSG
+-a----         12/2/2024  12:19 PM            342 config
+-a----        11/19/2024   4:49 PM             73 description
+-a----        11/19/2024   4:49 PM             23 HEAD
+-a----        11/19/2024   4:52 PM           2096 index
+
+
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git> git status
+fatal: this operation must be run in a work tree
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git> cd hooks
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git\hooks> ls
+
+
+    Directory: C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git\hooks
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        11/19/2024   4:49 PM            478 applypatch-msg.sample
+-a----        11/19/2024   4:49 PM            896 commit-msg.sample
+-a----        11/19/2024   4:49 PM           4726 fsmonitor-watchman.sample
+-a----        11/19/2024   4:49 PM            189 post-update.sample
+-a----        11/19/2024   4:49 PM            424 pre-applypatch.sample
+-a----         12/2/2024  12:23 PM            321 pre-commit
+-a----         12/2/2024  12:24 PM           1654 pre-commit.sample
+-a----        11/19/2024   4:49 PM            416 pre-merge-commit.sample
+-a----        11/19/2024   4:49 PM           1374 pre-push.sample
+-a----        11/19/2024   4:49 PM           4898 pre-rebase.sample
+-a----        11/19/2024   4:49 PM            544 pre-receive.sample
+-a----        11/19/2024   4:49 PM           1492 prepare-commit-msg.sample
+-a----        11/19/2024   4:49 PM           2783 push-to-checkout.sample
+-a----        11/19/2024   4:49 PM           2308 sendemail-validate.sample
+-a----        11/19/2024   4:49 PM           3650 update.sample
+
+
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git\hooks> git commit -m "Test"
+fatal: this operation must be run in a work tree
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git\hooks> cd ..
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git> cd ..
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject> cd .git
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git> bandit --version
+bandit 1.8.0
+  python version = 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git> bandit -r . -f csv -o bandit_report.csv
+[main]  INFO    profile include tests: None
+[main]  INFO    profile exclude tests: None
+[main]  INFO    cli include tests: None
+[main]  INFO    cli exclude tests: None
+[main]  INFO    running on Python 3.11.9
+[csv]   INFO    CSV output written to file: bandit_report.csv
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git> Get-Location
+
+Path
+----
+C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git
+
+
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git> git init
+Initialized empty Git repository in C:/Users/snube/OneDrive/Desktop/Auburn University/Fall 2024/COMP 5710 Software Quality Assurance/PRoject/.git/.git/
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git> ls
+
+
+    Directory: C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----         12/2/2024  12:21 PM                hooks
+d-----        11/19/2024   4:49 PM                info
+d-----        11/19/2024   4:52 PM                logs
+d-----        11/19/2024   4:52 PM                objects
+d-----        11/19/2024   4:53 PM                refs
+-a----         12/2/2024  12:29 PM            141 bandit_report.csv
+-a----         12/2/2024  12:18 PM             15 COMMIT_EDITMSG
+-a----         12/2/2024  12:19 PM            342 config
+-a----        11/19/2024   4:49 PM             73 description
+-a----        11/19/2024   4:49 PM             23 HEAD
+-a----        11/19/2024   4:52 PM           2096 index
+
+
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git> cd .git
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git\.git> ls
+
+
+    Directory: C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git\.git
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----         12/2/2024  12:32 PM                hooks
+d-----         12/2/2024  12:32 PM                info
+d-----         12/2/2024  12:32 PM                objects
+d-----         12/2/2024  12:32 PM                refs
+-a----         12/2/2024  12:32 PM            130 config
+-a----         12/2/2024  12:32 PM             73 description
+-a----         12/2/2024  12:32 PM             23 HEAD
+
+
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git\.git> cd ..
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git> git rev-parse --is-bare-repository
+false
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git> git add .
+warning: in the working copy of 'COMMIT_EDITMSG', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'HEAD', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'config', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'description', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'hooks/applypatch-msg.sample', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'hooks/commit-msg.sample', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'hooks/fsmonitor-watchman.sample', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'hooks/post-update.sample', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'hooks/pre-applypatch.sample', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'hooks/pre-commit.sample', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'hooks/pre-merge-commit.sample', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'hooks/pre-push.sample', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'hooks/pre-rebase.sample', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'hooks/pre-receive.sample', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'hooks/prepare-commit-msg.sample', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'hooks/push-to-checkout.sample', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'hooks/sendemail-validate.sample', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'hooks/update.sample', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'info/exclude', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'logs/HEAD', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'logs/refs/heads/master', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'logs/refs/remotes/origin/master', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'refs/heads/master', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'refs/remotes/origin/master', LF will be replaced by CRLF the next time Git touches it
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git> git commit -m "Initial Commit"
+Author identity unknown
+
+*** Please tell me who you are.
+
+Run
+
+  git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"
+
+to set your account's default identity.
+Omit --global to set the identity only in this repository.
+
+fatal: unable to auto-detect email address (got 'snube@SnuberEddie.(none)')
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git> git config user.email "mzk0113@auburn.edu"
+
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git> git commit -m "Initial Commit"
+[master (root-commit) 9d6ba48] Initial Commit
+ 51 files changed, 917 insertions(+)
+ create mode 100644 COMMIT_EDITMSG
+ create mode 100644 HEAD
+ create mode 100644 bandit_report.csv
+ create mode 100644 config
+ create mode 100644 description
+ create mode 100644 hooks/applypatch-msg.sample
+ create mode 100644 hooks/commit-msg.sample
+ create mode 100644 hooks/fsmonitor-watchman.sample
+ create mode 100644 hooks/post-update.sample
+ create mode 100644 hooks/pre-applypatch.sample
+ create mode 100644 hooks/pre-commit
+ create mode 100644 hooks/pre-commit.sample
+ create mode 100644 hooks/pre-merge-commit.sample
+ create mode 100644 hooks/pre-push.sample
+ create mode 100644 hooks/pre-rebase.sample
+ create mode 100644 hooks/pre-receive.sample
+ create mode 100644 hooks/prepare-commit-msg.sample
+ create mode 100644 hooks/push-to-checkout.sample
+ create mode 100644 hooks/sendemail-validate.sample
+ create mode 100644 hooks/update.sample
+ create mode 100644 index
+ create mode 100644 info/exclude
+ create mode 100644 logs/HEAD
+ create mode 100644 logs/refs/heads/master
+ create mode 100644 logs/refs/remotes/origin/master
+ create mode 100644 objects/14/0f9ee7a20a0a7fa7ee7bc84d2b80e40b78d135
+ create mode 100644 objects/31/8c4b28c8246d625d26db611b218848b5f5434e
+ create mode 100644 objects/34/d46f1724f8b2aa84c7695b3a4a1fa44085ea1b
+ create mode 100644 objects/4c/2cf2944d76dfa267ffd8a6f6a53c078d544c67
+ create mode 100644 objects/5e/489932b7e53c63117d5c29e2ca89dc45dc3697
+ create mode 100644 objects/61/4d9e0f8b6d365b2e3dc1aba8885ecb41aa9afe
+ create mode 100644 objects/62/a02dcb4e6714c37ff3fb59a45d07c57b49fe94
+ create mode 100644 objects/6a/36d7160c28ade278270993a8904801bea634d5
+ create mode 100644 objects/72/d43500db46add641a70f153342703ce35145f8
+ create mode 100644 objects/78/7cb1635de1553962b2bd4dbc95a390c8122426
+ create mode 100644 objects/80/9955c1e8a40def80a78928197c31dc244fe5e8
+ create mode 100644 objects/83/8254c91c0aa992bf34206a342523462261c197
+ create mode 100644 objects/8d/1b928337ae44ca09a6eb75961f639d19a8ee4f
+ create mode 100644 objects/8d/84a21446ff252dcbf4d77837c5237cd7a3b139
+ create mode 100644 objects/93/4e07131d2d3567b8def8ff0c4b79db297d2292
+ create mode 100644 objects/97/4e29b7c3c8232e8062314712ab5043752df99a
+ create mode 100644 objects/9a/eb04605dccbae11ba56b09c03c3823eed01168
+ create mode 100644 objects/9f/0b214efb4d51384f092c5b005d73697509e545
+ create mode 100644 objects/a1/9f85027c03e59d5b44bba6f0b0525100b0e9bd
+ create mode 100644 objects/b6/e3d612e4579babfb5abb0da0624e8ded86de53
+ create mode 100644 objects/be/6f629e726e152e1ed45545c733df0823a7d550
+ create mode 100644 objects/da/1e090258ee2749e90761fa84e737980c31ced0
+ create mode 100644 objects/e0/bbd7b4f3e39f7bf69641f5b3c2a4851e518b4e
+ create mode 100644 objects/e1/d977c0e42207e1ec320050a40d47f7a10cc7c0
+ create mode 100644 refs/heads/master
+ create mode 100644 refs/remotes/origin/master
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git> git remote add origin https://github.com/mzk0113/AIFA-FALL2024-SQA
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git> git push -u origin master
+To https://github.com/mzk0113/AIFA-FALL2024-SQA
+ ! [rejected]        master -> master (fetch first)
+error: failed to push some refs to 'https://github.com/mzk0113/AIFA-FALL2024-SQA'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git> git fetch origin
+remote: Enumerating objects: 33, done.
+remote: Counting objects: 100% (33/33), done.
+remote: Compressing objects: 100% (25/25), done.
+remote: Total 33 (delta 3), reused 24 (delta 3), pack-reused 0 (from 0)
+Unpacking objects: 100% (33/33), 39.83 KiB | 302.00 KiB/s, done.
+From https://github.com/mzk0113/AIFA-FALL2024-SQA
+ * [new branch]      main       -> origin/main
+ * [new branch]      master     -> origin/master
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git> git merge origin/master
+fatal: refusing to merge unrelated histories
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git> git rebase origin/master
+Successfully rebased and updated refs/heads/master.
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git> git push origin master
+Enumerating objects: 86, done.
+Counting objects: 100% (86/86), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (76/76), done.
+Writing objects: 100% (85/85), 66.04 KiB | 2.54 MiB/s, done.
+Total 85 (delta 2), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (2/2), done.
+To https://github.com/mzk0113/AIFA-FALL2024-SQA
+   e0bbd7b..e969771  master -> master
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git> git push origin --delete main
+To https://github.com/mzk0113/AIFA-FALL2024-SQA
+ - [deleted]         main
+PS C:\Users\snube\OneDrive\Desktop\Auburn University\Fall 2024\COMP 5710 Software Quality Assurance\PRoject\.git>
