@@ -57,6 +57,7 @@ def cloneRepo(repo_name, target_dir):
     try:
        subprocess.check_output(['bash','-c', cmd_])    
     except subprocess.CalledProcessError:
+        logger.warning(f"Skipping repository {repo_name} due to cloning issues.")
        print('Skipping this repo ... trouble cloning repo:', repo_name )
 
 
@@ -158,12 +159,15 @@ def getPythonFileCount(path2dir):
     
 
 def cloneRepos(repo_list, dev_threshold=3, python_threshold=0.10, commit_threshold = 25): 
+    logger.info("Starting cloneRepos function")
     counter = 0     
     str_ = ''
     all_list = []
     for repo_batch in repo_list:
         for repo_ in repo_batch:
             counter += 1 
+            #Logs current cloning
+            logger.info(f"Cloning repository {repo_} (repo {counter})")
             print('Cloning ', repo_ )
             dirName = '../FSE2021_REPOS/' + repo_.split('/')[-2] + '@' + repo_.split('/')[-1] ## '/' at the end messes up the index 
             cloneRepo(repo_, dirName )
@@ -172,10 +176,17 @@ def cloneRepos(repo_list, dev_threshold=3, python_threshold=0.10, commit_thresho
             flag = True
             all_fil_cnt = sum([len(files) for r_, d_, files in os.walk(dirName)])
             python_count = getPythonFileCount(dirName) 
+            #Logs file count
+            logger.debug(f"Total files: {all_fil_cnt}, Python files: {python_count} in {dirName}")
+
             if (all_fil_cnt <= 0):
+                #Logs that no files were found in directory
+                logger.warning(f"No files found in {dirName}. Deleting directory.")
                 deleteRepo(dirName, 'NO_FILES')
                 flag = False
             elif (python_count < (all_fil_cnt * python_threshold) ):
+                #Logs that not enough Python files were found
+                logger.warning(f"Insufficient Python files in {dirName}. Deleting directory.")
                 deleteRepo(dirName, 'NOT_ENOUGH_PYTHON_FILES')
                 flag = False
             else:       
@@ -190,7 +201,9 @@ def cloneRepos(repo_list, dev_threshold=3, python_threshold=0.10, commit_thresho
                 checkPattern = checkPythonFile(dirName) 
                 if (checkPattern == 0 ):
                     deleteRepo(dirName, 'NO_PATTERN')
-                    flag = False        
+                    flag = False
+
+            logger.info(f"Processed repository {repo_} (flag: {flag})")
             print('#'*100 )
             str_ = str_ + str(counter) + ',' +  repo_ + ',' + dirName + ','  + str(checkPattern) + ',' + str(dev_count) + ',' + str(flag) + ',' + '\n'
             tup = ( counter,  dirName, dev_count, all_fil_cnt, python_count , commit_count, age_months, flag)
@@ -205,7 +218,9 @@ def cloneRepos(repo_list, dev_threshold=3, python_threshold=0.10, commit_thresho
                 print(str_)                
             print('#'*100)
         print('*'*10)
-        
+
+    #Logs completion and total repositories processed
+    logger.info(f"Finished processing all batches. Total repositories processed: {counter}")
    
 
 if __name__=='__main__':
