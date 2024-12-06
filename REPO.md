@@ -16,8 +16,20 @@ All the activities and lessons learned
   - Fuzz Testing Benefits: Fuzz testing is an effective technique for discovering edge cases and bugs that may not be caught through traditional testing methods. It encourages robustness in code by challenging functions with unexpected inputs.
   - Automation in CI/CD: Automating tests and security checks through GitHub Actions streamlines the development process, allowing for quicker feedback and more reliable code quality. This practice fosters a culture of continuous improvement and vigilance in software development.
   - Documentation and Reporting: Keeping detailed reports of security analyses and fuzz testing results is essential for tracking progress and addressing issues. It also aids in compliance and auditing processes.
-  - 
-- 4.c:
+    
+4.c. Integrate forensics by modifying 5 Python methods of your choice.   
+
+- Activities: 
+
+  - Modified the files mining.py, frequency.py, main.py, log.op.miner.py, and git.repo.miner.py to create a logger. 
+
+   - The logger stores information regarding the current task being performed by the code, as well as some of the output in some cases. 
+
+   - The logger is started once the file starts executing. 
+
+- Lesson learned: 
+
+   - Knowing where to use the logger will have a significant impact in trying to solve any errors in the future, regardless of whether they are malicious or not. Certain outputs, such as how many files were processed can be particularly important when trying to dissuade a malicious input. 
   
 4.d. Integrate continuous integration with GitHub Actions. 
 
