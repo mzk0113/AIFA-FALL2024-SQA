@@ -26,19 +26,19 @@ def giveTimeStamp():
 
 def getAllSLOC(df_param, csv_encoding='latin-1' ):
     #Logs start of getAllSLOC
-    logObj.info("Starting SLOC calculation")
+    logger.info("Starting SLOC calculation")
     total_sloc = 0
     all_files = np.unique( df_param['FILE_FULL_PATH'].tolist() ) 
     for file_ in all_files:
         total_sloc = total_sloc + sum(1 for line in open(file_, encoding=csv_encoding))
 
     #Logs completion of getAllSLOC and result
-    logObj.info(f"Total SLOC: {total_sloc}")
+    logger.info(f"Total SLOC: {total_sloc}")
     return total_sloc
 
 def reportProportion( res_file, output_file ):
     #Logs start of reportProportion and input 
-    logObj.info(f"Starting reportProportion with res_file: {res_file}, output_file: {output_file}")
+    logger.info(f"Starting reportProportion with res_file: {res_file}, output_file: {output_file}")
     res_df = pd.read_csv( res_file )
     repo_names   = np.unique( res_df['REPO_FULL_PATH'].tolist() )
     
@@ -51,13 +51,14 @@ def reportProportion( res_file, output_file ):
         print('-'*50) 
         print(repo)
         #Logs current repo processing
-        logObj.info(f"Processing repo: {repo}")
+        logger.info(f"Processing repo: {repo}")
         repo_entity = res_df[res_df['REPO_FULL_PATH'] == repo ]           
         all_py_files   = np.unique( repo_entity['FILE_FULL_PATH'].tolist() )
         for field in fields2explore:
             field_atleast_one_df = repo_entity[repo_entity[field] > 0 ]
             atleast_one_files    = np.unique( field_atleast_one_df['FILE_FULL_PATH'].tolist() )
             prop_metric          = round(float(len( atleast_one_files ) )/float(len(all_py_files)) , 5) * 100
+            logger.info(f"Repo: {repo}, Field: {field}, Prop_metric: {prop_metric}")
             print('TOTAL_FILES:{}, CATEGORY:{}, ATLEASTONE:{}, PROP_VAL:{}'.format( len(all_py_files), field, len(atleast_one_files) , prop_metric  ))
             print('-'*50) 
             
@@ -69,10 +70,13 @@ def reportProportion( res_file, output_file ):
     full_df.to_csv(output_file, header= CSV_HEADER, index=False, encoding= 'utf-8') 
 
     #Logs completion
-    logObj.info(f"Proportion report saved to {output_file}")
+    logger.info(f"Proportion report saved to {output_file}")
 
 
 def reportEventDensity(res_file, output_file): 
+    #Logs start
+    logger.info(f"Starting reportEventDensity with res_file: {res_file}, output_file: {output_file}")
+    
     res_df = pd.read_csv(res_file) 
     repo_names   = np.unique( res_df['REPO_FULL_PATH'].tolist() )
     fields2explore = ['DATA_LOAD_COUNT', 'MODEL_LOAD_COUNT', 'DATA_DOWNLOAD_COUNT',	'MODEL_LABEL_COUNT', 'MODEL_OUTPUT_COUNT',	
@@ -101,15 +105,18 @@ def reportEventDensity(res_file, output_file):
             
     CSV_HEADER = ['REPO_NAME', 'TOTAL_LOC', 'CATEGORY', 'TOTAL_EVENT_COUNT', 'EVENT_DENSITY']
     full_df = pd.DataFrame( df_list ) 
-    full_df.to_csv(output_file, header= CSV_HEADER, index=False, encoding= 'utf-8') 
+    full_df.to_csv(output_file, header= CSV_HEADER, index=False, encoding= 'utf-8')
+
+    #Logs info on output file
+    logger.info(f"Event density report saved to {output_file}")
 
 if __name__=='__main__': 
 
     #Creates logger
-    logObj  = myLogger.giveMeLoggingObject()
+    logger = initializeLogger()
 
     #Logs correct initialization
-    logObj.info("frequency.py started")
+    logger.info("frequency.py started")
   
     print('*'*100 )
     t1 = time.time()
