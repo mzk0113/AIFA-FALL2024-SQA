@@ -6,22 +6,39 @@ Friday
 import os 
 import numpy as np 
 import ast 
-import constants 
+import constants
 
+import logging
+
+
+#Defines the logger
+def initializeLogger():
+    format_str = '%(asctime)s - %(levelname)s - %(message)s'
+    logging.basicConfig(format=format_str, filename='analyzeLogs.log', level=logging.INFO)
+    return logging.getLogger('log-analyzer')
+	
 PY_FILE_EXTENSION = '.py'
 NAME_KW = 'name'
 NAMES_KW = 'names' 
 LOGGING_KW = 'logging'
 
 def checkIfParsablePython( pyFile ):
+	#Logs check status 
+	logger.debug(f"Checking if file is parsable: {pyFile}")
+	
 	flag = True 
 	try:
 		full_tree = ast.parse( open( pyFile ).read())    
 	except (SyntaxError, UnicodeDecodeError) as err_ :
+		#Logs the file which could not be parsed 
+		logger.error(f"File {pyFile} is not parsable: {err_}", exc_info=True)
 		flag = False 
 	return flag 	
 
 def getAllPythonFilesinRepo(path2dir):
+	#Logs scan
+	logger.info(f"Scanning directory for Python files: {path2dir}")
+	
 	valid_list = []
 	for root_, dirnames, filenames in os.walk(path2dir):
 		for file_ in filenames:
@@ -30,9 +47,18 @@ def getAllPythonFilesinRepo(path2dir):
 				if (file_.endswith( PY_FILE_EXTENSION ) and (checkIfParsablePython( full_path_file ) )   ):
 					valid_list.append(full_path_file) 
 	valid_list = np.unique(  valid_list )
+
+	#Logs result
+	logger.info(f"Found {len(valid_list)} valid Python files in repository: {path2dir}")
+	
 	return valid_list
 
 def hasLogImport( file_ ):
+
+    #Logs current check
+    logger.debug(f"Checking for logging import in file: {file_}")
+
+	
     IMPORT_FLAG = False 
     tree_object = ast.parse( open( file_ ).read())    
     for stmt_ in tree_object.body:
@@ -144,6 +170,7 @@ def getPythonAtrributeFuncs(pyTree):
     return attrib_call_list 
 
 def getLogStatements( pyFile ): 
+	
     tree_object = ast.parse( open( pyFile ).read())    
     func_decl_list = getPythonAtrributeFuncs(tree_object)
     for func_decl_ in func_decl_list:
@@ -153,15 +180,25 @@ def getLogStatements( pyFile ):
                 print(func_parent_id, func_name, call_arg_list, arg_)   
 
 def printLogOps(repo_path):
-    valid_py_files = getAllPythonFilesinRepo( repo_path ) 
-    log_py_files   = [x_ for x_ in valid_py_files if hasLogImport(  x_ ) ]
+    #Logs current check
+    logger.info(f"Analyzing repository for logging operations: {repo_path}")
+	
+    valid_py_files = getAllPythonFilesinRepo(repo_path)
+    log_py_files = [x_ for x_ in valid_py_files if hasLogImport(x_)]
     for py_file in log_py_files:
+        logger.info(f"Processing file: {py_file}")
         print(py_file)
-        print(getLogStatements( py_file ) )
-        print('='*50)
+        print(getLogStatements(py_file))
+        logger.info(f"Finished processing file: {py_file}")
+        print('=' * 50)
 
 
 
 if __name__=='__main__':
+    #Creates logger
+    logger = initializeLogger()
+    logger.info("log.op.miner.py started.")
+
     repo_path = '/Users/arahman/FSE2021_ML_REPOS/MODELZOO/'
+	
     # printLogOps( repo_path )
