@@ -13,6 +13,14 @@ import pandas as pd
 import py_parser 
 import numpy as np 
 
+#Imports loggin
+import logging
+
+#Defines the logger
+def initializeLogger():
+    format_str = '%(asctime)s - %(levelname)s - %(message)s'
+    logging.basicConfig(format=format_str, filename='runFameML.log', level=logging.INFO)
+    return logging.getLogger('main.py-logger')
 
 def giveTimeStamp():
   tsObj = time.time()
@@ -22,6 +30,8 @@ def giveTimeStamp():
 
 def getCSVData(dic_, dir_repo):
 	temp_list = []
+	#Logs directory
+	logger.info(f"Processing directory: {dir_repo}")
 	for TEST_ML_SCRIPT in dic_:
 		# print(constants.ANALYZING_KW + TEST_ML_SCRIPT) 
 		# Section 1.1a
@@ -127,17 +137,26 @@ def getCSVData(dic_, dir_repo):
 		
 		total_event_count = data_load_count   + model_load_count    + data_download_count + \
 		                    model_label_count + model_output_count  + data_pipeline_count + \
-							environment_count + state_observe_count 
+							environment_count + state_observe_count
+
+		#Logs total_event_count result
+		logger.debug(f"Computed total event count for {TEST_ML_SCRIPT}: {total_event_count}")
 		
 		the_tup = ( dir_repo, TEST_ML_SCRIPT, data_load_count, model_load_count, data_download_count, \
   				  model_label_count, model_output_count, data_pipeline_count, environment_count, state_observe_count, total_event_count )
 
 		temp_list.append( the_tup )
 		# print('='*25)
+
+	#Logs completion
+	logger.info(f"Finished processing directory: {dir_repo}")
 	return temp_list
   
   
 def getAllPythonFilesinRepo(path2dir):
+	#Logs initialization and path used
+	logger.info(f"Scanning repository for Python files: {path2dir}")
+	
 	valid_list = []
 	for root_, dirnames, filenames in os.walk(path2dir):
 		for file_ in filenames:
@@ -146,14 +165,27 @@ def getAllPythonFilesinRepo(path2dir):
 				if (file_.endswith( constants.PY_FILE_EXTENSION ) and (py_parser.checkIfParsablePython( full_path_file ) )   ):
 					valid_list.append(full_path_file) 
 	valid_list = np.unique(  valid_list )
+
+	#Logs result
+	logger.info(f"Found {len(valid_list)} Python files in repository: {path2dir}")
 	return valid_list
 
 
 def runFameML(inp_dir, csv_fil):
+	#Logs initialization
+	logger.info(f"Starting FameML processing for input directory: {inp_dir}")
+	
 	output_event_dict = {}
 	df_list = [] 
 	list_subfolders_with_paths = [f.path for f in os.scandir(inp_dir) if f.is_dir()]
+	#Logs subdirectories count
+	logger.info(f"Found {len(list_subfolders_with_paths)} subdirectories to process.")
+
+	
 	for subfolder in list_subfolders_with_paths: 
+		#logs current subfolder
+		logger.info(f"Processing subfolder: {subfolder}")
+		
 		events_with_dic =  getAllPythonFilesinRepo(subfolder)  
 		if subfolder not in output_event_dict:
 			output_event_dict[subfolder] = events_with_dic
@@ -164,10 +196,19 @@ def runFameML(inp_dir, csv_fil):
 	full_df = pd.DataFrame( df_list ) 
 	# print(full_df.head())
 	full_df.to_csv(csv_fil, header= constants.CSV_HEADER, index=False, encoding= constants.UTF_ENCODING)     
+
+	#Logs output CSV file
+	logger.info(f"Results saved to CSV file: {csv_fil}")
+	
 	return output_event_dict
 
 
 if __name__=='__main__':
+
+	#Creates logger
+	logger = initializeLogger()
+	logger.info("main.py started.")
+	
 	command_line_flag = False ## after acceptance   
 
 	t1 = time.time()
