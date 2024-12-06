@@ -19,7 +19,7 @@ def initializeLogger():
     logging.basicConfig(format=format_str, filename=file_name, level=logging.INFO)
     return logging.getLogger('forensics-logger')
   
-logger = initializeLogger()
+
 
 def giveTimeStamp():
   tsObj = time.time()
@@ -226,10 +226,10 @@ def cloneRepos(repo_list, dev_threshold=3, python_threshold=0.10, commit_thresho
 if __name__=='__main__':
 
     #Creates logger
-    logObj  = myLogger.giveMeLoggingObject()
+    logger = initializeLogger()
 
     #Logs correct initialization
-    logObj.info("mining.py started")
+    logger.info("mining.py started")
   
     repos_df = pd.read_csv('PARTIAL_REMAINING_GITHUB.csv', sep='delimiter')
     print(repos_df.head())
