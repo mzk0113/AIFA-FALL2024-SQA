@@ -53,11 +53,16 @@ def makeChunks(the_list, size_):
         
         
 def cloneRepo(repo_name, target_dir):
+    #Logs start
+    logger.info("Started clone repo")
     cmd_ = "git clone " + repo_name + " " + target_dir 
     try:
-       subprocess.check_output(['bash','-c', cmd_])    
+       subprocess.check_output(['bash','-c', cmd_]) 
+       #Logs completion
+       logger.info("Finished cloning")
     except subprocess.CalledProcessError:
-        logger.warning(f"Skipping repository {repo_name} due to cloning issues.")
+       #Logs error
+       logger.warning(f"Skipping repository {repo_name} due to cloning issues.")
        print('Skipping this repo ... trouble cloning repo:', repo_name )
 
 
