@@ -18,12 +18,25 @@ import time
 import  datetime 
 import os 
 
+#Imports logging
+import logging
+
+# Initialize Logger
+def initializeLogger():
+    format_str = '%(asctime)s - %(levelname)s - %(message)s'
+    logging.basicConfig(format=format_str, filename='repoMiner.log', level=logging.INFO)
+    return logging.getLogger('repo-miner')
+
 def deleteRepo(dirName, type_):
     print(':::' + type_ + ':::Deleting ', dirName)
     try:
         if os.path.exists(dirName):
             shutil.rmtree(dirName)
-    except OSError:
+            #Logs correct deletion
+            logger.info(f"Successfully deleted {dirName}")
+    except OSError as e:
+        #Logs error
+        logger.error(f"Failed to delete {dirName}: {e}", exc_info=True)
         print('Failed deleting, will try manually')        
 
 
@@ -32,25 +45,40 @@ def makeChunks(the_list, size_):
         yield the_list[i:i+size_]
 
 def cloneRepo(repo_name, target_dir):
+    #Logs repor being cloned
+    logger.info(f"Cloning repository: {repo_name} into {target_dir}")
     cmd_ = "git clone " + repo_name + " " + target_dir 
     try:
-       subprocess.check_output(['bash','-c', cmd_])    
-    except subprocess.CalledProcessError:
+       subprocess.check_output(['bash','-c', cmd_])
+       #Logs correct cloning
+       logger.info(f"Successfully cloned {repo_name}")
+    except subprocess.CalledProcessError as e:
        print('Skipping this repo ... trouble cloning repo:', repo_name )
+       #Logs error cloning
+       logger.error(f"Error cloning repository {repo_name}: {e}", exc_info=True)
 
 def dumpContentIntoFile(strP, fileP):
+    #Logs start
+    logger.info(f"Dumping content into file: {fileP}")
     fileToWrite = open( fileP, 'w')
     fileToWrite.write(strP )
     fileToWrite.close()
+    #Logs completion
+    size = os.stat(fileP).st_size
+    logger.info(f"Dumped content into {fileP} (size: {size} bytes)")
     return str(os.stat(fileP).st_size)
 
 def getPythonCount(path2dir): 
+    #Logs start
+    logger.info(f"Counting Python files in directory: {path2dir}")
     usageCount = 0
     for root_, dirnames, filenames in os.walk(path2dir):
         for file_ in filenames:
             full_path_file = os.path.join(root_, file_) 
             if (file_.endswith('py') ):
                 usageCount +=  1 
+    #Logs count and completion
+    logger.info(f"Found {usageCount} Python files in {path2dir}")
     return usageCount                         
 
 
@@ -60,6 +88,9 @@ def cloneRepos(repo_list):
     for repo_batch in repo_list:
         for repo_ in repo_batch:
             counter += 1 
+            #Logs current repo
+            logger.info(f"Processing repository {counter}: {repo_}")
+            
             print('Cloning ', repo_ )
             dirName = '/Users/arahman/FSE2021_ML_REPOS/GITHUB_REPOS/' + repo_.split('/')[-2] + '@' + repo_.split('/')[-1] 
             cloneRepo(repo_, dirName )
@@ -73,9 +104,13 @@ def cloneRepos(repo_list):
                if(prop_py < 0.25):
                    deleteRepo(dirName, 'LOW_PYTHON_' + str( round(prop_py, 5) ) )
             print("So far we have processed {} repos".format(counter) )
+            #Logs repo count
+            logger.info(f"Processed {counter} repositories so far.")
             if((counter % 10) == 0):
                 dumpContentIntoFile(str_, 'tracker_completed_repos.csv')
             elif((counter % 100) == 0):
+                #Logs checkpoint
+                logger.info(f"Checkpoint reached at {counter} repositories")
                 print(str_)                
             print('#'*100)
 
@@ -93,6 +128,8 @@ def getMLStats(repo_path):
 
 
 def getMLLibraryUsage(path2dir): 
+    #Logs start
+    logger.info(f"Checking for ML library usage in directory: {path2dir}")
     usageCount  = 0 
     for root_, dirnames, filenames in os.walk(path2dir):
         for file_ in filenames:
@@ -111,6 +148,9 @@ def getMLLibraryUsage(path2dir):
                                 usageCount = usageCount + 1
                         # elif('rl_coach' in fileContent) or ('tensorforce' in fileContent) or ('stable_baselines' in fileContent) or ('keras' in fileContent) or ('tf' in fileContent):
                         #         usageCount = usageCount + 1
+    #Logs result
+    logger.info(f"Found {usageCount} ML library usages in {path2dir}")
+
     return usageCount      
 
 
@@ -121,6 +161,8 @@ def deleteRepos():
         deleteRepo( x_, 'ML_LIBRARY_THRESHOLD' )
 
 if __name__=='__main__':
+    logger = initializeLogger()
+    logger.info("repoMiner started.")
     # repos_df = pd.read_csv('PARTIAL_REMAINING_GITHUB.csv')
     # list_    = repos_df['URL'].tolist()
     # list_    = np.unique(list_)
